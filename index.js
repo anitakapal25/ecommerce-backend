@@ -21,7 +21,7 @@ app.get("/",(req,res)=>{
 
 //to configure the storage engine for handling file uploads to the disk.
 const storage = multer.diskStorage({
-    destination: './tmp/images',
+    destination: '/tmp/',
     filename:(req,file,cb)=>{
         // Specify the destination folder where the uploaded files will be stored
         return cb(null,`${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`)
@@ -30,7 +30,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage:storage})
 //creating upload endpoint for images
-app.use('/images',express.static('tmp/images'))
+app.use('/images',express.static('tmp/'))
 app.post('/upload',upload.single('product'),(req,res)=>{
     res.json({
         success:1,
